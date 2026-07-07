@@ -1,0 +1,65 @@
+.page-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #f97316;
+}
+
+/* Forms */
+.filter-form,
+.add-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-form input,
+.add-form input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn-primary {
+    background: #f97316;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Table */
+.workout-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e293b;
+}
+
+.workout-table th,
+.workout-table td {
+    padding: 12px;
+    border-bottom: 1px solid #334155;
+    text-align: center;
+}
+
+.workout-table th {
+    background: #020617;
+    color: #f97316;
+}
+
+.btn-edit {
+    color: #22c55e;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.btn-delete {
+    color: #ef4444;
+    text-decoration: none;
+}
+
+.empty-row {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+}

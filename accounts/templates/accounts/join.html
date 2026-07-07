@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Membership</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .form-box {
+            background: #222;
+            padding: 30px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: orange;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Gym Zone Membership</h1>
+    <h2>You Selected: {{ plan|title }} Plan</h2>
+
+    <div class="form-box">
+        <h3>Complete Your Registration</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            
+            <button type="submit">Confirm Membership</button>
+        </form>
+    </div>
+
+</body>
+</html>

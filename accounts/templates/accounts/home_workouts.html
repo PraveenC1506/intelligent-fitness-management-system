@@ -1,0 +1,73 @@
+{% extends "accounts/base_dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/workouts.css' %}">
+
+<h1 class="page-title">Home Workout Plans</h1>
+<p class="page-subtitle">Bodyweight workouts – no equipment</p>
+
+<div class="workout-grid">
+
+    <div class="workout-card">
+        <h2>Chest</h2>
+        <ul>
+            <li>Push-ups</li>
+            <li>Wide Push-ups</li>
+            <li>Decline Push-ups</li>
+            <li>Pause Push-ups</li>
+        </ul>
+    </div>
+
+    <div class="workout-card">
+        <h2>Back</h2>
+        <ul>
+            <li>Superman Hold</li>
+            <li>Reverse Snow Angels</li>
+            <li>Resistance Band Row</li>
+            <li>Wall Pull</li>
+        </ul>
+    </div>
+
+    <div class="workout-card">
+        <h2>Biceps</h2>
+        <ul>
+            <li>Towel Curls</li>
+            <li>Isometric Holds</li>
+            <li>Slow Negatives</li>
+            <li>Chin Hold</li>
+        </ul>
+    </div>
+
+    <div class="workout-card">
+        <h2>Triceps</h2>
+        <ul>
+            <li>Bench Dips</li>
+            <li>Diamond Push-ups</li>
+            <li>Close Push-ups</li>
+            <li>Isometric Hold</li>
+        </ul>
+    </div>
+
+    <div class="workout-card">
+        <h2>Shoulders</h2>
+        <ul>
+            <li>Pike Push-ups</li>
+            <li>Arm Circles</li>
+            <li>Wall Holds</li>
+            <li>Front Raises (No weight)</li>
+        </ul>
+    </div>
+
+    <div class="workout-card">
+        <h2>Legs</h2>
+        <ul>
+            <li>Bodyweight Squats</li>
+            <li>Lunges</li>
+            <li>Wall Sit</li>
+            <li>Calf Raises</li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

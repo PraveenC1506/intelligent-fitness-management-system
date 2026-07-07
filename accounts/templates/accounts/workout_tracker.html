@@ -1,0 +1,62 @@
+{% extends "accounts/base_dashboard.html" %}
+{% load static %}
+
+{% block content %}
+
+<h2 class="page-title">Workout Tracker</h2>
+
+<!-- FILTER -->
+<form method="get" class="filter-form">
+    <input type="date" name="date" value="{{ selected_date }}">
+    <button type="submit">Filter</button>
+</form>
+
+<!-- ADD WORKOUT -->
+<form method="post" action="{% url 'add_workout' %}" class="add-form">
+    {% csrf_token %}
+    <input type="date" name="date" required>
+    <input type="text" name="exercise_name" placeholder="Exercise" required>
+    <input type="number" name="sets" placeholder="Sets" required>
+    <input type="number" name="reps" placeholder="Reps" required>
+    <input type="number" name="weight" placeholder="Weight">
+    <button type="submit">Add Workout</button>
+</form>
+
+<!-- TABLE -->
+<table class="workout-table">
+    <thead>
+        <tr>
+            If this is empty → backend is not passing data -->
+            <th>Date</th>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Weight</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for w in workouts %}
+        <tr>
+            <td>{{ w.workout_date }}</td>
+            <td>{{ w.exercise_name }}</td>
+            <td>{{ w.sets }}</td>
+            <td>{{ w.reps }}</td>
+            <td>{{ w.weight }}</td>
+            <td>
+                <a href="{% url 'edit_workout' w.id %}">Edit</a>
+                <a href="{% url 'delete_workout' w.id %}"
+                   onclick="return confirm('Delete workout?')">
+                   Delete
+                </a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="6">No workouts found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

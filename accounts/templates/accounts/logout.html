@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout</title>
+    <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+</head>
+<body>
+
+<div class="logout-container">
+    <h2>Logged Out</h2>
+    <p class="info-text">Your session has ended successfully</p>
+
+    <div class="button-group">
+        <a href="{% url 'login' %}" class="btn primary">Login Again</a>
+        <a href="{% url 'home' %}" class="btn secondary">Go to Home</a>
+    </div>
+</div>
+
+</body>
+</html>

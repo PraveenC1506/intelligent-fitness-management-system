@@ -1,0 +1,59 @@
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #f5b400;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+/* GRID */
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.workout-card {
+    background: linear-gradient(145deg, #1e1e1e, #151515);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    transition: 0.3s ease;
+    border-left: 4px solid #f5b400;
+}
+
+.workout-card:hover {
+    transform: translateY(-8px);
+}
+
+/* CARD TITLE */
+.workout-card h2 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* LIST */
+.workout-card ul {
+    list-style: none;
+}
+
+.workout-card ul li {
+    color: #ccc;
+    padding: 6px 0;
+    font-size: 14px;
+    position: relative;
+    padding-left: 16px;
+}
+
+.workout-card ul li::before {
+    content: "✔";
+    color: #f5b400;
+    position: absolute;
+    left: 0;
+}

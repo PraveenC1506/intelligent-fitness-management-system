@@ -1,0 +1,16 @@
+{% extends "accounts/base_dashboard.html" %}
+{% block content %}
+
+<h2>Edit Food</h2>
+
+<form method="post" class="add-form">
+    {% csrf_token %}
+    <input type="text" name="meal" value="{{ food.meal }}" required>
+    <input type="text" name="food_name" value="{{ food.food_name }}" required>
+    <input type="number" name="quantity" value="{{ food.quantity }}" required>
+    <input type="number" name="calories" value="{{ food.calories }}" required>
+    <input type="number" name="protein" value="{{ food.protein }}">
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}
