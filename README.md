@@ -18,3 +18,15 @@ A gym and fitness management website developed using Django, HTML, CSS, and Java
 - SQLite
 
 Developed by Praveen C
+
+
+## Screenshots
+
+### Home Page
+![Home Page](home-page.png)
+
+### Dashboard
+![Dashboard](Dashboard.png)
+
+### Login Page
+![Login Page](login.png)
