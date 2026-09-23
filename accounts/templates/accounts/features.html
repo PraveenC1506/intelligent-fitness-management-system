@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gym Features</title>
+    <link rel="stylesheet" href="{% static 'css/features.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">GYM ZONE</div>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a class="active" href="{% url 'features' %}">Features</a></li>
+        <li><a href="{% url 'membership' %}">Membership</a></li>
+        <li><a href="{% url 'about' %}">About us</a></li>
+        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    </ul>
+</nav>
+
+<!-- HEADER -->
+<header class="header">
+    <h1>Gym Features</h1>
+    <p>Everything you need for a complete fitness lifestyle</p>
+</header>
+
+<!-- FEATURES SECTION -->
+<section class="features">
+
+    <div class="card">
+        <h2>🏋️ Modern Equipment</h2>
+        <p>
+            High-quality machines, free weights, and strength equipment
+            designed for beginners to advanced lifters.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>🧑‍🏫 Certified Trainers</h2>
+        <p>
+            Professional trainers to guide you with proper form,
+            workout plans, and injury prevention.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>🔥 Cardio Zone</h2>
+        <p>
+            Dedicated cardio area with treadmills, cycles,
+            cross trainers, and rowers.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>🧘 Flexibility & Recovery</h2>
+        <p>
+            Stretching zones for warm-up, cool-down,
+            and mobility improvement.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>🧼 Hygiene & Safety</h2>
+        <p>
+            Clean environment, sanitized equipment,
+            and safety-first training rules.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>⏰ Flexible Timings</h2>
+        <p>
+            Morning and evening sessions that
+            fit your daily schedule.
+        </p>
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Ready to Train With Us?</h2>
+    <a href="{% url 'membership' %}" class="btn">View Membership Plans</a>
+</section>
+
+<footer>
+    <p>© 2026 Gym Zone</p>
+</footer>
+
+</body>
+</html>

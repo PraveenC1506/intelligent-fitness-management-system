@@ -1,0 +1,47 @@
+{% extends "accounts/base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}Contact Us | Gym Zone{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact-hero">
+    <div class="contact-overlay">
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="contact-container">
+
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+            <p>Have questions about membership, training, or facilities? Reach out to us anytime.</p>
+
+            <ul>
+                <li><strong>📍 Address:</strong> Gym Zone, Main Road, City</li>
+                <li><strong>📞 Phone:</strong> +91 98765 43210</li>
+                <li><strong>📧 Email:</strong> gymzone@gmail.com</li>
+                <li><strong>⏰ Timing:</strong> Mon – Sat (5AM – 10PM)</li>
+            </ul>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Message</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

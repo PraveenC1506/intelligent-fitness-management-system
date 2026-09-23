@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashbor.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            display:flex;
+            min-height:100vh;
+            background: linear-gradient(135deg,#141E30,#243B55);
+            color:white;
+        }
+
+        .sidebar{
+            width:250px;
+            background:#111;
+            padding:20px;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .sidebar a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:12px;
+            margin:10px 0;
+            border-radius:8px;
+            transition:0.3s;
+        }
+
+        .sidebar a:hover{
+            background:#ff4b2b;
+        }
+
+    .content {
+    flex: 1;
+    padding: 60px;
+    background:
+        linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+        url("https://images.unsplash.com/photo-1599058917212-d750089bc07e") center/cover no-repeat;
+    color: white;
+}
+
+
+.card {
+    flex: 1;
+    min-width: 250px;
+    background: #1c1c1c;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 5px solid #ff3c00;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: #252525;
+}
+
+.hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-bottom: 40px;
+}
+
+
+
+/* Workout Tracker Layout */
+.workout-container {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+}
+
+/* Cards */
+.workout-card,
+.history-card {
+    flex: 1;
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    color: white;
+}
+
+/* Headings */
+.workout-card h2,
+.history-card h2 {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff512f;
+    padding-bottom: 8px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+    background: #222;
+    color: white;
+}
+
+/* Button */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ff512f, #dd2476);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+th {
+    text-align: left;
+    color: #ff512f;
+}
+
+/* Status Colors */
+.done {
+    color: #00e676;
+    font-weight: bold;
+}
+
+.not-done {
+    color: #ff1744;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🏋 Gym Pro</h2>
+
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'workout_tracker' %}">Workout tracker</a>
+        <a href="{% url 'food_tracker' %}">Food Tracker</a>
+        <a href="{% url 'gym' %}">Gym Workout</a>
+        <a href="{% url 'home_workouts' %}">Home Workouts</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <!-- Right Content -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

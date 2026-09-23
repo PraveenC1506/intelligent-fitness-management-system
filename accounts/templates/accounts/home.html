@@ -1,0 +1,331 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gym Zone</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    padding: 0;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 50px;
+    background:#020617;
+}
+
+.navbar h2{
+    color:#f97316;
+    margin:0;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:15px;
+}
+
+.login-btn{
+    background:#22c55e;
+    padding:8px 16px;
+    border-radius:6px;
+    color:black;
+    font-weight:bold;
+}
+
+/* HERO */
+.hero{
+    height:90vh;
+    background:
+      linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+      url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48");
+    background-size:cover;
+    background-position:center;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding-left:80px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+/* SECTIONS */
+.section{
+    padding:70px 80px;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#f8fafc;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.main{
+    min-height: 100vh;
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<!-- <div class="navbar">
+    <h2>GYM ZONE</h2>
+    <div>
+        <a href="#">Home</a>
+        <a href="#features">Features</a>
+        <a href="#plans">Plans</a>
+        <a href="#contact">Contact</a>
+        <a class="login-btn" href="/login/">Login</a>
+    </div>
+</div> -->
+
+<!-- HERO -->
+<!-- <div class="hero">
+    <div>
+        <h1>Build Your Body<br>Transform Your Life</h1>
+        <p>Join the best gym with professional trainers.</p>
+    </div>
+</div> -->
+
+<!-- FEATURES -->
+<!-- <div class="section" id="features">
+    <h2>Why Choose Us</h2>
+    <div class="cards">
+        <div class="card">💪 Modern Equipment</div>
+        <div class="card">🏋️ Certified Trainers</div>
+        <div class="card">🥗 Diet Guidance</div>
+        <div class="card">📈 Progress Tracking</div>
+    </div>
+</div> -->
+
+<!-- PLANS -->
+<!-- <div class="section" id="plans">
+    <h2>Membership Plans</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Basic</h3>
+            <p>₹999 / month</p>
+        </div>
+        <div class="card">
+            <h3>Standard</h3>
+            <p>₹1999 / month</p>
+        </div>
+        <div class="card">
+            <h3>Premium</h3>
+            <p>₹2999 / month</p>
+        </div>
+    </div>
+</div> -->
+
+<!-- CONTACT -->
+<!-- <div class="section" id="contact">
+    <h2>Contact Us</h2>
+    <p style="text-align:center">
+        📞 9876543210 <br>
+        📍 Chennai,Tamil Nadu,India
+    </p>
+</div>
+
+</body>
+</html>  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gym Zone</title>
+
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body> -->
+
+    <!-- NAVBAR -->
+    <!-- <nav class="navbar">
+        <div class="logo">GYM ZONE</div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#plans">Membership</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#dashboard" class="dashboard-btn">Dashboard</a></li>
+        </ul>
+    </nav> -->
+
+    <!-- HERO SECTION -->
+    <!-- <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Life</h1>
+            <p>Train harder. Get stronger. Live better.</p>
+            <a href="#plans" class="btn">Join Now</a>
+        </div>
+    </section>
+
+</body>
+</html> --> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gym Zone</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">GYM ZONE</div>
+    <ul>
+        <li><a class="active" href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'features' %}">Features</a></li>
+        <li><a href="{% url 'membership' %}">Membership</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="{% url 'login' %}">login</a></li>
+        
+
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Discipline Builds Strength</h1>
+        <p>A place where consistency becomes a lifestyle.</p>
+        <a href="/membership/" class="btn">Start Your Journey</a>
+    </div>
+</section>
+
+<!-- INTRO -->
+<section class="section intro">
+    <h2>Welcome to Gym Zone</h2>
+    <p>
+        Gym Zone is more than just a gym.  
+        It’s a mindset, a routine, and a commitment to becoming better every day.
+        We believe fitness is not a short-term goal — it’s a lifelong discipline.
+    </p>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section dark">
+    <div class="split">
+        <div>
+            <h2>Our Philosophy</h2>
+            <p>
+                No shortcuts. No excuses.  
+                Just structured training, proper guidance, and consistency.
+                Whether you are a beginner or experienced, we help you build habits
+                that last.
+            </p>
+        </div>
+        <div class="quote">
+            “Motivation gets you started.  
+            Discipline keeps you going.”
+        </div>
+    </div>
+</section>
+
+<!-- MOTIVATION -->
+<section class="motivation">
+    <h2>Small Progress Every Day</h2>
+    <p>Results come from showing up — even on hard days.</p>
+</section>
+
+<!-- STATS -->
+<section class="section stats">
+    <div class="stat">
+        <h3>5+</h3>
+        <p>Years of Training Culture</p>
+    </div>
+    <div class="stat">
+        <h3>1000+</h3>
+        <p>Active Members</p>
+    </div>
+    <div class="stat">
+        <h3>24/7</h3>
+        <p>Training Environment</p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Your Fitness Journey Starts Here</h2>
+    <a href="/features/" class="btn">Explore the Gym</a>
+</section>
+
+<footer>
+    <p>© 2026 Gym Zone</p>
+</footer>
+
+</body>
+</html>

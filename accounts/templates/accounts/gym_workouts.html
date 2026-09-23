@@ -1,0 +1,79 @@
+{% extends "accounts/base_dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/gym_workouts.css' %}">
+
+<h1 class="page-title">Gym Workout Plans</h1>
+<p class="page-subtitle">Structured workouts for every muscle group</p>
+
+<div class="workout-grid">
+
+    <!-- CHEST -->
+    <div class="workout-card">
+        <h2>Chest</h2>
+        <ul>
+            <li>Bench Press</li>
+            <li>Incline Dumbbell Press</li>
+            <li>Chest Fly</li>
+            <li>Push-ups</li>
+        </ul>
+    </div>
+
+    <!-- BACK -->
+    <div class="workout-card">
+        <h2>Back</h2>
+        <ul>
+            <li>Lat Pulldown</li>
+            <li>Seated Cable Row</li>
+            <li>Deadlift</li>
+            <li>Pull-ups</li>
+        </ul>
+    </div>
+
+    <!-- BICEPS -->
+    <div class="workout-card">
+        <h2>Biceps</h2>
+        <ul>
+            <li>Barbell Curl</li>
+            <li>Dumbbell Curl</li>
+            <li>Hammer Curl</li>
+            <li>Preacher Curl</li>
+        </ul>
+    </div>
+
+    <!-- TRICEPS -->
+    <div class="workout-card">
+        <h2>Triceps</h2>
+        <ul>
+            <li>Tricep Pushdown</li>
+            <li>Skull Crushers</li>
+            <li>Overhead Extension</li>
+            <li>Dips</li>
+        </ul>
+    </div>
+
+    <!-- SHOULDERS -->
+    <div class="workout-card">
+        <h2>Shoulders</h2>
+        <ul>
+            <li>Overhead Press</li>
+            <li>Lateral Raises</li>
+            <li>Front Raises</li>
+            <li>Face Pulls</li>
+        </ul>
+    </div>
+
+    <!-- LEGS -->
+    <div class="workout-card">
+        <h2>Legs</h2>
+        <ul>
+            <li>Squats</li>
+            <li>Leg Press</li>
+            <li>Leg Curl</li>
+            <li>Calf Raises</li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
