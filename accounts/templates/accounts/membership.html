@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@ body{
 /* ===== NAVBAR ===== */
 .navbar{
     display:flex;
-    justify-content:flex-end;   /* RIGHT SIDE */
+    justify-content:flex-end;
     align-items:center;
     padding:20px 60px;
     gap:35px;
@@ -77,15 +78,18 @@ body{
     text-align:center;
     transition:0.3s;
     border:2px solid transparent;
+    cursor:pointer;
 }
 
 .card:hover{
     transform:translateY(-10px);
 }
 
-.card.pro{
+/* Selected card highlight */
+.card.selected{
     border:2px solid #f4b400;
     box-shadow:0 0 20px rgba(244,180,0,0.6);
+    transform:translateY(-10px);
 }
 
 .price{
@@ -176,115 +180,257 @@ body{
     color:#aaa;
 }
 
+/* ===== COMING SOON PAGE ===== */
+.coming-soon-page{
+    display:none;
+    min-height:100vh;
+    padding:30px 20px;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.coming-soon-box{
+    background:#1c1c1c;
+    padding:50px 35px;
+    border:2px solid #f4b400;
+    border-radius:15px;
+    max-width:500px;
+    width:100%;
+    box-shadow:0 0 25px rgba(244,180,0,0.25);
+}
+
+.coming-soon-box h1{
+    color:#f4b400;
+    font-size:36px;
+    margin-bottom:20px;
+}
+
+.coming-soon-box p{
+    color:#ccc;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.back-btn{
+    display:inline-block;
+    padding:12px 25px;
+    background:#f4b400;
+    color:#111;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.back-btn:hover{
+    background:white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .navbar{
+        justify-content:center;
+        gap:15px;
+        flex-wrap:wrap;
+        padding:20px;
+    }
+
+    .title-section h1{
+        font-size:30px;
+    }
+
+    .card-container{
+        gap:25px;
+    }
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'features' %}">Features</a>
-    <a class="active" href="{% url 'membership' %}">Membership</a>
-    <a href="{% url 'about' %}">About Us</a>
-    <a href="{% url 'contact' %}">Contact Us</a>
-    <a href="{% url 'login' %}">Login</a>
+<!-- MEMBERSHIP PAGE -->
+<div id="membershipPage">
 
-
- <!-- <li><a class="active" href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'features' %}">Features</a></li>
-        <li><a href="{% url 'membership' %}">Membership</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
-        <li><a href="{% url 'login' %}">login</a></li> -->
-
-
-
-</div>
-
-<!-- TITLE -->
-<div class="title-section">
-    <h1>Choose Your Membership</h1>
-    <p>Flexible plans designed for every fitness level</p>
-</div>
-
-<!-- MEMBERSHIP CARDS -->
-<div class="card-container">
-
-    <div class="card">
-        <h2>Basic</h2>
-        <div class="price">₹999 / month</div>
-        <ul class="features">
-            <li>✓ Gym Access</li>
-            <li>✓ Cardio Zone</li>
-            <li>✓ Locker Facility</li>
-            <li>✗ Personal Trainer</li>
-            <li>✗ Diet Plan</li>
-        </ul>
-        <a href="#" class="btn">Join Now</a>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'features' %}">Features</a>
+        <a class="active" href="{% url 'membership' %}">Membership</a>
+        <a href="{% url 'about' %}">About Us</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <a href="{% url 'login' %}">Login</a>
     </div>
 
-    <div class="card pro">
-        <h2>Pro</h2>
-        <div class="price">₹1999 / month</div>
-        <ul class="features">
-            <li>✓ Gym + Weights</li>
-            <li>✓ Personal Trainer</li>
-            <li>✓ Group Classes</li>
-            <li>✓ Shower Access</li>
-            <li>✗ Diet Plan</li>
-        </ul>
-        <a href="#" class="btn">Join Now</a>
+    <!-- TITLE -->
+    <div class="title-section">
+        <h1>Choose Your Membership</h1>
+        <p>Flexible plans designed for every fitness level</p>
     </div>
 
-    <div class="card">
-        <h2>Premium</h2>
-        <div class="price">₹2999 / month</div>
-        <ul class="features">
-            <li>✓ Full Access</li>
-            <li>✓ Personal Trainer</li>
-            <li>✓ Diet Plan</li>
-            <li>✓ Weekly Reports</li>
-            <li>✓ Priority Support</li>
-        </ul>
-        <a href="#" class="btn">Join Now</a>
-    </div>
+    <!-- MEMBERSHIP CARDS -->
+    <div class="card-container">
 
-</div>
+        <div class="card" data-plan="Basic">
+            <h2>Basic</h2>
+            <div class="price">₹999 / month</div>
 
-<!-- EXTRA BENEFITS -->
-<div class="benefits-section">
-    <h2>Why Choose Our Gym?</h2>
-    <p>We provide more than just equipment. We provide transformation.</p>
+            <ul class="features">
+                <li>✓ Gym Access</li>
+                <li>✓ Cardio Zone</li>
+                <li>✓ Locker Facility</li>
+                <li>✗ Personal Trainer</li>
+                <li>✗ Diet Plan</li>
+            </ul>
 
-    <div class="benefits-container">
-
-        <div class="benefit-card">
-            <h3>Modern Equipment</h3>
-            <p>State-of-the-art machines and weights to support all training styles and fitness levels.</p>
+            <a href="#" class="btn">Join Now</a>
         </div>
 
-        <div class="benefit-card">
-            <h3>Certified Trainers</h3>
-            <p>Professional and experienced trainers to guide you safely towards your goals.</p>
+        <div class="card" data-plan="Pro">
+            <h2>Pro</h2>
+            <div class="price">₹1999 / month</div>
+
+            <ul class="features">
+                <li>✓ Gym + Weights</li>
+                <li>✓ Personal Trainer</li>
+                <li>✓ Group Classes</li>
+                <li>✓ Shower Access</li>
+                <li>✗ Diet Plan</li>
+            </ul>
+
+            <a href="#" class="btn">Join Now</a>
         </div>
 
-        <div class="benefit-card">
-            <h3>Nutrition Guidance</h3>
-            <p>Personalized meal guidance and diet strategies for effective fat loss or muscle gain.</p>
-        </div>
+        <div class="card" data-plan="Premium">
+            <h2>Premium</h2>
+            <div class="price">₹2999 / month</div>
 
-        <div class="benefit-card">
-            <h3>Community Support</h3>
-            <p>Be part of a motivating and supportive fitness community that keeps you inspired.</p>
+            <ul class="features">
+                <li>✓ Full Access</li>
+                <li>✓ Personal Trainer</li>
+                <li>✓ Diet Plan</li>
+                <li>✓ Weekly Reports</li>
+                <li>✓ Priority Support</li>
+            </ul>
+
+            <a href="#" class="btn">Join Now</a>
         </div>
 
     </div>
+
+    <!-- EXTRA BENEFITS -->
+    <div class="benefits-section">
+        <h2>Why Choose Our Gym?</h2>
+        <p>We provide more than just equipment. We provide transformation.</p>
+
+        <div class="benefits-container">
+
+            <div class="benefit-card">
+                <h3>Modern Equipment</h3>
+                <p>State-of-the-art machines and weights to support all training styles and fitness levels.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h3>Certified Trainers</h3>
+                <p>Professional and experienced trainers to guide you safely towards your goals.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h3>Nutrition Guidance</h3>
+                <p>Personalized meal guidance and diet strategies for effective fat loss or muscle gain.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h3>Community Support</h3>
+                <p>Be part of a motivating and supportive fitness community that keeps you inspired.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © GYM ZONE | All Rights Reserved
+    </div>
+
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    © GYM ZONE | All Rights Reserved
+<!-- COMING SOON NOTIFICATION PAGE -->
+<div class="coming-soon-page" id="comingSoonPage">
+    <div class="coming-soon-box">
+        <h1>Membership Coming Soon!</h1>
+        <p id="selectedPlanMessage">
+            Our membership plans will be available soon.
+        </p>
+        <p>Stay tuned for updates!</p>
+
+        <a href="#" class="back-btn" id="backToMembership">
+            Back to Membership
+        </a>
+    </div>
 </div>
+
+<script>
+    const cards = document.querySelectorAll(".card");
+    const membershipPage = document.getElementById("membershipPage");
+    const comingSoonPage = document.getElementById("comingSoonPage");
+    const selectedPlanMessage = document.getElementById("selectedPlanMessage");
+    const backToMembership = document.getElementById("backToMembership");
+
+    let selectedPlan = "";
+
+    // Click a plan card to highlight only that card
+    cards.forEach(function(card) {
+        card.addEventListener("click", function(event) {
+            // Join Now click is handled separately
+            if (event.target.closest(".btn")) {
+                return;
+            }
+
+            cards.forEach(function(item) {
+                item.classList.remove("selected");
+            });
+
+            card.classList.add("selected");
+            selectedPlan = card.dataset.plan;
+        });
+    });
+
+    // Join Now opens the Coming Soon notification page
+    document.querySelectorAll(".btn").forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            const card = button.closest(".card");
+            selectedPlan = card.dataset.plan;
+
+            cards.forEach(function(item) {
+                item.classList.remove("selected");
+            });
+
+            card.classList.add("selected");
+
+            selectedPlanMessage.textContent =
+                selectedPlan + " membership is coming soon. Payment is not available yet.";
+
+            membershipPage.style.display = "none";
+            comingSoonPage.style.display = "flex";
+
+            window.scrollTo(0, 0);
+        });
+    });
+
+    // Return to membership page
+    backToMembership.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        comingSoonPage.style.display = "none";
+        membershipPage.style.display = "block";
+
+        window.scrollTo(0, 0);
+    });
+</script>
 
 </body>
 </html>

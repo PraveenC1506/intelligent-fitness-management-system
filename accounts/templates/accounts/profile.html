@@ -1,79 +1,309 @@
 {% extends 'accounts/base_dashboard.html' %}
 
 {% block content %}
+
 <style>
     .profile-container {
-    display: flex;
-    gap: 30px;
-    padding: 40px;
-}
+        display: flex;
+        gap: 30px;
+        padding: 40px;
+    }
 
-/* Two Equal Boxes */
-.profile-section {
-    flex: 1;
-    background: linear-gradient(145deg, #1a1a1a, #111);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    color: white;
-}
+    /* Two Equal Boxes */
+    .profile-section {
+        flex: 1;
+        min-width: 0;
+        background: linear-gradient(145deg, #1a1a1a, #111);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        color: white;
+    }
 
-.profile-section h3 {
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ff512f;
-    padding-bottom: 8px;
-}
+    .profile-section h3 {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ff512f;
+        padding-bottom: 8px;
+    }
 
-.info {
-    margin-bottom: 12px;
-    padding: 8px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-}
+    .info {
+        margin-bottom: 12px;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
 
-.info label {
-    font-size: 13px;
-    color: #bbb;
-}
+    .info label {
+        display: block;
+        font-size: 13px;
+        color: #bbb;
+        margin-bottom: 4px;
+    }
 
-.info p {
-    font-size: 15px;
-    font-weight: 500;
-}
+    .info p {
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0;
+    }
 
-/* Active status style */
-.active {
-    color: #00e676;
-    font-weight: bold;
-}
+    .info input,
+    .info select {
+        width: 100%;
+        box-sizing: border-box;
+        background: transparent;
+        color: white;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        font-family: inherit;
+        padding: 2px 0;
+    }
+
+    .info input::placeholder {
+        color: #aaa;
+    }
+
+    .info select option {
+        background: #222;
+        color: white;
+    }
+
+    .info input:focus,
+    .info select:focus {
+        border-bottom: 1px solid #ff512f;
+    }
+
+    .active {
+        color: #00e676;
+        font-weight: bold;
+    }
+
+    .profile-save-btn {
+        width: 100%;
+        margin-top: 10px;
+        padding: 12px 18px;
+        background: #ff512f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .profile-save-btn:hover {
+        background: #e74727;
+    }
+
+    .profile-message {
+        margin: 0 40px 15px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        background: rgba(0, 230, 118, 0.12);
+        color: #00e676;
+    }
+
+    .profile-error {
+        background: rgba(255, 81, 47, 0.12);
+        color: #ff795f;
+    }
+
+    @media (max-width: 900px) {
+        .profile-container {
+            flex-direction: column;
+            padding: 25px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .profile-container {
+            padding: 15px;
+            gap: 20px;
+        }
+
+        .profile-section {
+            padding: 18px;
+        }
+
+        .profile-message {
+            margin: 0 15px 15px;
+        }
+    }
 </style>
+
+
+<!-- SUCCESS / ERROR MESSAGES -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="profile-message {% if message.tags == 'error' %}profile-error{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
 <div class="profile-container">
 
-    <!-- LEFT SIDE -->
+    <!-- LEFT SIDE: PERSONAL DETAILS -->
     <div class="profile-section">
+
         <h3>Personal Details</h3>
 
-        <div class="info"><label>Full Name</label><p>Praveen Kumar</p></div>
-        <div class="info"><label>Age</label><p>22 Years</p></div>
-        <div class="info"><label>Gender</label><p>Male</p></div>
-        <div class="info"><label>Phone</label><p>+91 9876543210</p></div>
-        <div class="info"><label>Email</label><p>{{ request.user.email }}</p></div>
-        <div class="info"><label>Height</label><p>170 cm</p></div>
-        <div class="info"><label>Weight</label><p>70 kg</p></div>
+        <form method="POST" id="profile-form">
+            {% csrf_token %}
+
+            <div class="info">
+                <label for="full_name">Full Name</label>
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    value="{{ request.user.get_full_name }}"
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+            <div class="info">
+                <label for="age">Age</label>
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value="{{ profile_data.age|default_if_none:'' }}"
+                    placeholder="Enter your age"
+                    min="1"
+                >
+            </div>
+
+            <div class="info">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="">Select Gender</option>
+
+                    <option value="Male"
+                        {% if profile_data.gender == "Male" %}selected{% endif %}>
+                        Male
+                    </option>
+
+                    <option value="Female"
+                        {% if profile_data.gender == "Female" %}selected{% endif %}>
+                        Female
+                    </option>
+
+                    <option value="Other"
+                        {% if profile_data.gender == "Other" %}selected{% endif %}>
+                        Other
+                    </option>
+                </select>
+            </div>
+
+            <div class="info">
+                <label for="phone">Phone</label>
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value="{{ profile_data.phone }}"
+                    placeholder="Enter phone number"
+                >
+            </div>
+
+            <div class="info">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ request.user.email }}"
+                    placeholder="Enter email address"
+                    required
+                >
+            </div>
+
+            <div class="info">
+                <label for="height">Height (cm)</label>
+                <input
+                    type="number"
+                    id="height"
+                    name="height"
+                    value="{{ profile_data.height|default_if_none:'' }}"
+                    placeholder="Enter height in cm"
+                    min="1"
+                    step="0.01"
+                >
+            </div>
+
+            <div class="info">
+                <label for="weight">Weight (kg)</label>
+                <input
+                    type="number"
+                    id="weight"
+                    name="weight"
+                    value="{{ profile_data.weight|default_if_none:'' }}"
+                    placeholder="Enter weight in kg"
+                    min="1"
+                    step="0.01"
+                >
+            </div>
+
+            <button type="submit" class="profile-save-btn">
+                Save Changes
+            </button>
+
+        </form>
+
     </div>
 
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT SIDE: MEMBERSHIP DETAILS -->
     <div class="profile-section">
+
         <h3>Membership Details</h3>
 
-        <div class="info"><label>Membership ID</label><p>#GYM2026{{ request.user.id }}</p></div>
-        <div class="info"><label>Plan</label><p>Premium (6 Months)</p></div>
-        <div class="info"><label>Start Date</label><p>01 Jan 2026</p></div>
-        <div class="info"><label>Expiry Date</label><p>01 July 2026</p></div>
-        <div class="info"><label>Status</label><p class="active">Active</p></div>
-        <div class="info"><label>Trainer</label><p>Mr. Arun</p></div>
-        <div class="info"><label>Emergency Contact</label><p>+91 9123456780</p></div>
+        <div class="info">
+            <label>Membership ID</label>
+            <p>#GYM2026{{ request.user.id }}</p>
+        </div>
+
+        <div class="info">
+            <label>Plan</label>
+            <p>Premium (6 Months)</p>
+        </div>
+
+        <div class="info">
+            <label>Start Date</label>
+            <p>01 Jan 2026</p>
+        </div>
+
+        <div class="info">
+            <label>Expiry Date</label>
+            <p>01 July 2026</p>
+        </div>
+
+        <div class="info">
+            <label>Status</label>
+            <p class="active">Active</p>
+        </div>
+
+        <div class="info">
+            <label>Trainer</label>
+            <p>Mr. Arun</p>
+        </div>
+
+        <div class="info">
+            <label for="emergency_contact">Emergency Contact</label>
+            <input
+                type="text"
+                id="emergency_contact"
+                name="emergency_contact"
+                form="profile-form"
+                value="{{ profile_data.emergency_contact }}"
+                placeholder="Enter emergency contact"
+            >
+        </div>
+
     </div>
 
 </div>

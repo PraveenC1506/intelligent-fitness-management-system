@@ -1,4 +1,3 @@
-
 from django.urls import path
 from . import views
 
@@ -36,7 +35,9 @@ urlpatterns = [
     path('food/edit/<int:id>/', views.edit_food, name='edit_food'),
     path('food/delete/<int:id>/', views.delete_food, name='delete_food'),
 
-    # Other
+    # Progress tracker
     path('progress_tracker/', views.progress_tracker, name='progress_tracker'),
+
+    # Membership join
     path('join/', views.join_view, name='join'),
 ]

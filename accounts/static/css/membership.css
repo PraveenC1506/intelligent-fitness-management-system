@@ -1,134 +1,255 @@
+
+/* ===== GLOBAL ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* NAVBAR */
+body {
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+/* ===== NAVBAR ===== */
 .navbar {
-    height: 70px;
-    background: #000;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 0 6%;
-    border-bottom: 1px solid #222;
+    padding: 20px 60px;
+    gap: 35px;
 }
 
-.logo {
-    font-size: 26px;
-    font-weight: bold;
-    color: #fff;
-}
-.logo span {
-    color: #f5b400;
-}
-
-.navbar nav a {
-    color: #ccc;
-    margin-left: 24px;
+.navbar a {
     text-decoration: none;
-    font-size: 15px;
-}
-.navbar nav a.active,
-.navbar nav a:hover {
-    color: #f5b400;
-}
-.login {
-    border: 1px solid #f5b400;
-    padding: 6px 14px;
-    border-radius: 20px;
-}
-
-/* MAIN BACKGROUND */
-.membership-section {
-    min-height: calc(100vh - 70px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 60px 6%;
-    background:
-        radial-gradient(circle at center, rgba(255,200,0,0.15), transparent 40%),
-        linear-gradient(180deg, #0b0b0b, #000);
-    color: #fff;
-}
-
-/* PLANS */
-.plans-wrapper {
-    display: flex;
-    gap: 30px;
-}
-
-.plan-card {
-    width: 300px;
-    background: #1b1b1b;
-    padding: 30px 25px;
-    border-radius: 16px;
-    box-shadow: 0 25px 40px rgba(0,0,0,0.6);
+    color: white;
+    font-weight: 500;
     transition: 0.3s;
 }
 
-.plan-card:hover {
-    transform: translateY(-8px);
+.navbar a:hover {
+    color: #f4b400;
 }
 
-.plan-card h3 {
-    font-size: 26px;
-    margin-bottom: 15px;
+/* ===== TITLE ===== */
+.title-section {
+    text-align: center;
+    margin-top: 40px;
 }
 
-.price {
-    font-size: 28px;
-    color: #f5b400;
-    margin-bottom: 20px;
+.title-section h1 {
+    font-size: 40px;
+    color: #f4b400;
 }
 
-.price span {
-    font-size: 14px;
-    color: #aaa;
+.title-section p {
+    margin-top: 10px;
+    color: #ccc;
 }
 
-.plan-card ul {
-    list-style: none;
-    margin-bottom: 25px;
+/* ===== CARD CONTAINER ===== */
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 60px 20px;
+    flex-wrap: wrap;
 }
 
-.plan-card ul li {
-    margin: 10px 0;
-    color: #ddd;
-}
-
-.plan-card button {
-    background: #f5b400;
-    border: none;
-    padding: 10px 28px;
-    border-radius: 25px;
-    font-weight: bold;
+/* ===== MEMBERSHIP CARD ===== */
+.card {
+    background: #1c1c1c;
+    padding: 40px 30px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+    transition: background 0.3s ease,
+                border 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+    border: 2px solid transparent;
     cursor: pointer;
 }
 
-/* ACTIVE CARD */
-.plan-card.active {
-    border: 2px solid #f5b400;
-    transform: scale(1.05);
-    background: linear-gradient(180deg, #232323, #151515);
+/* Normal hover effect */
+.card:hover {
+    transform: translateY(-10px);
 }
 
-/* RIGHT SIDE TEXT */
-.side-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+/* ===== SELECTED PLAN HIGHLIGHT ===== */
+.card.selected {
+    background: linear-gradient(
+        145deg,
+        rgba(244, 180, 0, 0.28),
+        #1c1c1c 75%
+    );
+
+    border: 2px solid #f4b400;
+
+    box-shadow:
+        0 0 20px rgba(244, 180, 0, 0.45),
+        inset 0 0 25px rgba(244, 180, 0, 0.08);
+
+    transform: translateY(-10px);
+}
+
+/* ===== PRICE ===== */
+.price {
+    font-size: 28px;
+    color: #f4b400;
+    margin: 15px 0;
+}
+
+/* ===== FEATURES ===== */
+.features {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.features li {
+    margin: 10px 0;
+    color: #ccc;
+}
+
+/* ===== JOIN NOW BUTTON ===== */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: #f4b400;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: white;
+}
+
+/* ===== EXTRA BENEFITS SECTION ===== */
+.benefits-section {
+    padding: 80px 20px;
     text-align: center;
 }
 
-.side-text h1 {
-    font-size: 42px;
-    color: #f5b400;
+.benefits-section h2 {
+    font-size: 36px;
+    color: #f4b400;
     margin-bottom: 20px;
 }
 
-.side-text p {
+.benefits-section p {
+    color: #ccc;
+    margin-bottom: 50px;
+}
+
+.benefits-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.benefit-card {
+    background: #222;
+    padding: 30px;
+    width: 280px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.benefit-card:hover {
+    background: #2b2b2b;
+    transform: translateY(-8px);
+}
+
+.benefit-card h3 {
+    color: #f4b400;
+    margin-bottom: 15px;
+}
+
+.benefit-card p {
+    color: #bbb;
     font-size: 14px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    border-top: 1px solid #333;
     color: #aaa;
+}
+
+/* ===== COMING SOON PAGE ===== */
+.coming-soon-page {
+    display: none;
+    min-height: 100vh;
+    padding: 30px 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.coming-soon-box {
+    background: #1c1c1c;
+    padding: 50px 35px;
+    border: 2px solid #f4b400;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 25px rgba(244, 180, 0, 0.25);
+}
+
+.coming-soon-box h1 {
+    color: #f4b400;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.coming-soon-box p {
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* ===== BACK TO MEMBERSHIP BUTTON ===== */
+.back-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #f4b400;
+    color: #111;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background: white;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .title-section h1 {
+        font-size: 30px;
+    }
+
+    .card-container {
+        gap: 25px;
+    }
 }

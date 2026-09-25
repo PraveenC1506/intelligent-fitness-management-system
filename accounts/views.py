@@ -1,5 +1,5 @@
-
 from datetime import date, timedelta
+from decimal import Decimal, InvalidOperation
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import IntegrityError
 
-from .models import Workout, FoodLog
+from .models import Workout, FoodLog, Profile, ContactMessage
 
 
 # =========================
@@ -32,6 +32,31 @@ def about(request):
 
 
 def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name", "").strip()
+        email = request.POST.get("email", "").strip()
+        subject = request.POST.get("subject", "").strip()
+        message_text = request.POST.get("message", "").strip()
+
+        if name and email and subject and message_text:
+            ContactMessage.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message_text
+            )
+
+            messages.success(
+                request,
+                "Your message has been submitted successfully!"
+            )
+            return redirect("contact")
+
+        messages.error(
+            request,
+            "Please fill in all the fields."
+        )
+
     return render(request, 'accounts/contact.html')
 
 
@@ -45,8 +70,8 @@ def join_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
 
         user = authenticate(
             request,
@@ -56,37 +81,41 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect("dashboard")
 
         return render(
             request,
-            'accounts/login.html',
+            "accounts/login.html",
             {
-                'error': 'Invalid username or password'
+                "error": "Invalid username or password",
+                "username": username
             }
         )
 
-    return render(request, 'accounts/login.html')
+    return render(request, "accounts/login.html")
 
 
 def register_view(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+        username = request.POST.get("username", "").strip()
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        confirm_password = request.POST.get("confirm_password", "")
 
         if not username or not email or not password or not confirm_password:
-            messages.error(request, "All fields are required")
-            return redirect('register')
+            messages.error(request, "All fields are required.")
+            return redirect("register")
 
         if password != confirm_password:
-            messages.error(request, "Passwords do not match")
-            return redirect('register')
+            messages.error(request, "Passwords do not match.")
+            return redirect("register")
 
         if len(password) < 6:
-            messages.error(request, "Password must be at least 6 characters")
-            return redirect('register')
+            messages.error(
+                request,
+                "Password must be at least 6 characters."
+            )
+            return redirect("register")
 
         try:
             User.objects.create_user(
@@ -99,19 +128,18 @@ def register_view(request):
                 request,
                 "Registration successful. Please login."
             )
-
-            return redirect('login')
+            return redirect("login")
 
         except IntegrityError:
-            messages.error(request, "Username already exists")
-            return redirect('register')
+            messages.error(request, "Username already exists.")
+            return redirect("register")
 
-    return render(request, 'accounts/register.html')
+    return render(request, "accounts/register.html")
 
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect("home")
 
 
 # =========================
@@ -129,11 +157,81 @@ def dashboard(request):
 
 @login_required(login_url='login')
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    profile_data, created = Profile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+        user = request.user
+
+        full_name = request.POST.get("full_name", "").strip()
+        email = request.POST.get("email", "").strip()
+
+        age_value = request.POST.get("age", "").strip()
+        gender = request.POST.get("gender", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        height_value = request.POST.get("height", "").strip()
+        weight_value = request.POST.get("weight", "").strip()
+        emergency_contact = request.POST.get(
+            "emergency_contact", ""
+        ).strip()
+
+        try:
+            age = int(age_value) if age_value else None
+
+            if age is not None and age <= 0:
+                raise ValueError
+
+            height = Decimal(height_value) if height_value else None
+
+            if height is not None and height <= 0:
+                raise ValueError
+
+            weight = Decimal(weight_value) if weight_value else None
+
+            if weight is not None and weight <= 0:
+                raise ValueError
+
+        except (ValueError, InvalidOperation):
+            messages.error(
+                request,
+                "Please enter valid age, height, and weight values."
+            )
+            return redirect("profile")
+
+        name_parts = full_name.split(maxsplit=1)
+
+        user.first_name = name_parts[0] if name_parts else ""
+        user.last_name = name_parts[1] if len(name_parts) > 1 else ""
+        user.email = email
+        user.save()
+
+        profile_data.age = age
+        profile_data.gender = gender
+        profile_data.phone = phone
+        profile_data.height = height
+        profile_data.weight = weight
+        profile_data.emergency_contact = emergency_contact
+        profile_data.save()
+
+        messages.success(
+            request,
+            "Profile updated successfully!"
+        )
+
+        return redirect("profile")
+
+    return render(
+        request,
+        "accounts/profile.html",
+        {
+            "profile_data": profile_data
+        }
+    )
 
 
 # =========================
-# WORKOUT
+# WORKOUT TRACKER
 # =========================
 
 @login_required(login_url='login')
@@ -211,7 +309,6 @@ def delete_workout(request, id):
     )
 
     workout.delete()
-
     return redirect("workout_tracker")
 
 
@@ -293,7 +390,6 @@ def edit_food(request, id):
         food.protein = request.POST.get("protein", 0)
 
         food.save()
-
         return redirect("food_tracker")
 
     return render(
@@ -314,12 +410,11 @@ def delete_food(request, id):
     )
 
     food.delete()
-
     return redirect("food_tracker")
 
 
 # =========================
-# PROGRESS
+# PROGRESS TRACKER
 # =========================
 
 @login_required(login_url='login')
